@@ -1,56 +1,96 @@
-# Simple Speedometer Script
+# TypeScript Speedometer
 
-A clean and simple speedometer script for FiveM that allows players to toggle between MPH and KMH units.
+A clean and modern speedometer for FiveM written in **TypeScript** that allows players to toggle between MPH and KMH units. Built with type safety and clean architecture for easy customization and maintenance.
 
-## Features
+## ✨ Features
 
-- **Real-time speed display** - Updates 10 times per second for smooth display
-- **Unit Toggle** - Press Z to switch between MPH and KMH
-- **Smart Display** - Only shows when in a vehicle
-- **Vehicle Type Filtering** - Configurable to hide in aircraft/boats
-- **Responsive Design** - Adapts to different screen resolutions
-- **Smooth Animations** - Speed changes and unit toggles are animated
-- **Clean UI** - Modern, semi-transparent design that doesn't obstruct gameplay
+- 🚗 **Real-time Speed Display** - Updates 10 times per second for silky smooth display
+- 🔄 **Unit Toggle** - Press Z to switch between MPH and KMH on the fly
+- 🎯 **Smart Display** - Only shows when you're actually in a vehicle
+- ✈️ **Vehicle Type Filtering** - Configurable to hide in aircraft, boats, or specific vehicle types
+- 📱 **Responsive Design** - Adapts perfectly to different screen resolutions
+- ⚡ **Smooth Animations** - Speed changes and unit toggles are beautifully animated
+- 🎨 **Clean UI** - Modern, semi-transparent design that doesn't obstruct gameplay
+- 🔧 **TypeScript** - Type-safe code that's easier to maintain and extend
+- ⚙️ **Gear Display** - Shows current gear and integrates with custom transmission systems
 
-## Installation
+## 📋 Requirements
 
-1. Copy the `speedometer` folder to your `resources/[gameplay]/` directory
-2. Add `ensure speedometer` to your `server.cfg`
-3. Restart your server
+- **Node.js** (v16 or higher) - [Download here](https://nodejs.org/)
+- **npm** (comes with Node.js)
+- **FiveM Server** (obviously! 😊)
 
-## Configuration
+## 🚀 Installation
 
-Edit `shared/config.lua` to customize:
+### For Server Owners (Quick Setup)
+
+1. **Download or clone** this repository to your `resources/[gameplay]/` directory
+2. **Install dependencies:**
+   ```bash
+   cd speedometer
+   npm install
+   ```
+3. **Build the TypeScript code:**
+   ```bash
+   npm run build
+   ```
+   Or on Windows, simply run `build.bat`
+   
+4. **Add to server.cfg:**
+   ```
+   ensure speedometer
+   ```
+5. **Restart your server**
+
+### For Developers
+
+```bash
+# Install dependencies
+npm install
+
+# Build once
+npm run build
+
+# Watch for changes and auto-rebuild (for development)
+npm run watch
+
+# Clean compiled output
+npm run clean
+```
+
+## ⚙️ Configuration
+
+The config file is now super friendly with detailed explanations! Edit `shared/config.lua` to customize everything:
 
 ```lua
 Config.Speedometer = {
-    -- Update interval in milliseconds (100 = 10 times per second)
-    UpdateInterval = 100,
+    -- Performance: How often to update (lower = smoother, higher = better performance)
+    UpdateInterval = 100,  -- 100ms = 10 updates per second
     
-    -- Default unit (true = MPH, false = KMH)
-    DefaultMPH = true,
+    -- Units: Choose your default measurement
+    DefaultMPH = true,  -- true = MPH (US/UK), false = KMH (everywhere else)
     
-    -- Key to toggle between MPH and KMH
-    ToggleKey = 20, -- Z key
+    -- Controls: Which key toggles between units
+    ToggleKey = 20,  -- 20 = Z key
     
-    -- Position on screen (0.0 to 1.0)
+    -- Position: Where on screen (0.0 = left/top, 1.0 = right/bottom)
     Position = {
-        x = 0.85,
-        y = 0.85
+        x = 0.85,  -- Right side
+        y = 0.85   -- Bottom area
     },
     
-    -- Show speedometer only when in vehicle
-    OnlyInVehicle = true,
+    -- Visibility: When should it show?
+    OnlyInVehicle = true,    -- Only show when driving
+    HideInAircraft = true,   -- Hide in planes/helis
+    HideInBoats = false,     -- Show in boats
     
-    -- Hide speedometer in certain vehicles
-    HideInAircraft = true,
-    HideInBoats = false,
-    
-    -- Visual settings
-    ShowBackground = true,
-    BackgroundOpacity = 180, -- 0-255
+    -- Visuals: How it looks
+    ShowBackground = true,       -- Background makes it easier to read
+    BackgroundOpacity = 180,     -- 0-255 (180 = nice balance)
 }
 ```
+
+Check the actual config file for **even more detailed explanations** - we've added helpful comments for every single setting!
 
 ## Controls
 
@@ -87,23 +127,77 @@ Change `UpdateInterval` in config.lua:
 - Lower values = smoother but more resource usage
 - Higher values = less smooth but better performance
 
-## Troubleshooting
+## 🔧 Development
 
-### Speedometer not showing
-1. Make sure you're in a vehicle
-2. Check if the vehicle type is allowed in config
-3. Verify the resource is started (`ensure speedometer` in server.cfg)
+This resource is written in TypeScript for better code quality and maintainability.
 
-### Toggle key not working
-1. Check if another resource is using the same key
-2. Verify the key code in config.lua
-3. Make sure you're in a vehicle when pressing the key
+### Project Structure
+```
+speedometer/
+├── src/
+│   └── client/
+│       └── main.ts          # Main TypeScript source code
+├── dist/                    # Compiled JavaScript (auto-generated)
+├── shared/
+│   └── config.lua          # Configuration file
+├── html/                    # UI files (HTML/CSS/JS)
+├── package.json            # Node.js dependencies
+├── tsconfig.json           # TypeScript configuration
+└── fxmanifest.lua         # FiveM resource manifest
+```
 
-### Performance issues
-1. Increase the `UpdateInterval` value
-2. Disable unnecessary visual effects
-3. Check for conflicts with other UI resources
+### Making Changes
 
-## License
+1. Edit TypeScript files in `src/`
+2. Run `npm run build` or `build.bat` to compile
+3. The compiled code goes into `dist/`
+4. FiveM loads the compiled JavaScript from `dist/`
 
-This script is provided as-is for educational and entertainment purposes.
+**Pro tip:** Use `npm run watch` during development to automatically rebuild when you save changes!
+
+## 🐛 Troubleshooting
+
+### Speedometer not showing?
+- ✅ Make sure you're actually in a vehicle (not on foot)
+- ✅ Check if the vehicle type is allowed in config (maybe aircraft are disabled?)
+- ✅ Verify the resource started: check server console or use `restart speedometer`
+- ✅ Make sure you **built the TypeScript**: run `npm run build`
+
+### Toggle key not working?
+- ✅ Another resource might be using the same key
+- ✅ Double-check the key code in `config.lua`
+- ✅ You must be in a vehicle for the toggle to work
+
+### Build errors?
+- ✅ Run `npm install` to install dependencies
+- ✅ Make sure Node.js is installed: `node --version`
+- ✅ Delete `node_modules` and `package-lock.json`, then run `npm install` again
+
+### Performance issues?
+- ✅ Increase `UpdateInterval` in config (try 150 or 200)
+- ✅ Check for conflicts with other UI resources
+- ✅ Lower your in-game graphics settings if needed
+
+## 📝 License
+
+MIT License - Feel free to use, modify, and share! See the repository for full license details.
+
+## 🤝 Contributing
+
+Found a bug? Want to add a feature? Pull requests are welcome! This is a TypeScript project, so:
+1. Fork the repo
+2. Make your changes in `src/`
+3. Test thoroughly
+4. Submit a PR with a clear description
+
+## 💬 Support
+
+If you encounter issues:
+1. Check the Troubleshooting section above
+2. Make sure you've built the TypeScript code
+3. Check your server console for error messages
+4. Open an issue on GitHub with details about your problem
+
+---
+
+Made with ❤️ for the FiveM community
