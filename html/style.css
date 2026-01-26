@@ -1,0 +1,131 @@
+/* Reset and base styles */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Arial', sans-serif;
+    background: transparent;
+    overflow: hidden;
+    user-select: none;
+}
+
+/* Speedometer container */
+.speedometer-container {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    pointer-events: none;
+    z-index: 1000;
+    display: none;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+}
+
+.speedometer-container.show {
+    display: block;
+    opacity: 1;
+}
+
+/* Speedometer content - minimal and clean */
+.speedometer-content {
+    position: absolute;
+    bottom: 1.5%;
+    right: 1.5%;
+    background: transparent;
+    backdrop-filter: none;
+    border: none;
+    border-radius: 0;
+    padding: 8px 12px;
+    box-shadow: none;
+    transition: all 0.3s ease;
+}
+
+/* Info row - horizontal layout */
+.info-row {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+}
+
+/* Gear display - subtle and compact */
+#gear-value {
+    font-size: 1.8rem;
+    font-weight: 700;
+    color: rgba(255, 255, 255, 0.95);
+    text-shadow: 0 2px 4px rgba(0, 0, 0, 0.8), 0 0 12px rgba(100, 180, 255, 0.5);
+    min-width: 35px;
+    text-align: center;
+    font-family: 'Courier New', monospace;
+    letter-spacing: 1px;
+}
+
+/* Speed group */
+.speed-group {
+    display: flex;
+    align-items: baseline;
+    gap: 5px;
+}
+
+#speed-value {
+    font-size: 2.2rem;
+    font-weight: 700;
+    color: rgba(255, 255, 255, 0.98);
+    text-shadow: 0 2px 4px rgba(0, 0, 0, 0.8), 0 0 12px rgba(255, 255, 255, 0.3);
+    line-height: 1;
+    font-family: 'Arial', sans-serif;
+    letter-spacing: 0.5px;
+}
+
+#speed-unit {
+    font-size: 0.9rem;
+    font-weight: 600;
+    color: rgba(255, 255, 255, 0.75);
+    text-shadow: 0 2px 4px rgba(0, 0, 0, 0.8), 0 0 8px rgba(150, 200, 255, 0.4);
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+/* Animations */
+@keyframes speedUpdate {
+    0% { transform: scale(1); }
+    50% { transform: scale(1.05); }
+    100% { transform: scale(1); }
+}
+
+.speed-update {
+    animation: speedUpdate 0.2s ease;
+}
+
+@keyframes gearShift {
+    0% { transform: scale(1); color: rgba(255, 255, 255, 0.9); text-shadow: 0 0 8px rgba(100, 180, 255, 0.4); }
+    50% { transform: scale(1.2); color: rgba(150, 220, 255, 1); text-shadow: 0 0 15px rgba(100, 180, 255, 0.8); }
+    100% { transform: scale(1); color: rgba(255, 255, 255, 0.9); text-shadow: 0 0 8px rgba(100, 180, 255, 0.4); }
+}
+
+.gear-shift {
+    animation: gearShift 0.3s ease;
+}
+
+@keyframes unitToggle {
+    0% { color: rgba(255, 255, 255, 0.6); transform: scale(1); }
+    50% { color: rgba(255, 255, 255, 1); transform: scale(1.1); }
+    100% { color: rgba(255, 255, 255, 0.6); transform: scale(1); }
+}
+
+.unit-toggle {
+    animation: unitToggle 0.5s ease;
+}
+
+/* Responsive */
+@media (max-width: 1366px) {
+    .speedometer-content { padding: 10px 15px; }
+    #gear-value { font-size: 1.5rem; }
+    #speed-value { font-size: 1.8rem; }
+    #speed-unit { font-size: 0.8rem; }
+    .info-row { gap: 12px; }
+}

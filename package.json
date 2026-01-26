@@ -1,0 +1,23 @@
+{
+    "name": "speedometer",
+    "version": "2.0.0",
+    "description": "TypeScript Speedometer with MPH/KMH Toggle",
+    "main": "dist/client/main.js",
+    "scripts": {
+        "build": "tsc",
+        "watch": "tsc --watch",
+        "clean": "if exist dist rmdir /s /q dist"
+    },
+    "keywords": [
+        "fivem",
+        "speedometer",
+        "typescript"
+    ],
+    "author": "Custom",
+    "license": "MIT",
+    "devDependencies": {
+        "@citizenfx/client": "latest",
+        "@types/node": "^20.10.0",
+        "typescript": "^5.3.3"
+    }
+}
