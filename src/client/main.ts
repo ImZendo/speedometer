@@ -157,12 +157,14 @@ class SpeedometerManager {
     }
 
     // Update the display with current speed and gear
-    private updateSpeedometer(speed: number, currentGear: number, maxGears: number): void {
+    private updateSpeedometer(speed: number, currentGear: number, maxGears: number, throttle: number, brake: number): void {
         SendNUIMessage({
             type: 'updateSpeed',
             speed: speed,
             gear: currentGear,
-            maxGears: maxGears
+            maxGears: maxGears,
+            throttle: throttle,
+            brake: brake
         });
     }
 
@@ -180,11 +182,16 @@ class SpeedometerManager {
 
                 const { currentGear, maxGears } = this.getTransmissionData(vehicle);
 
+                // Get throttle and brake input (0-1 range)
+                const throttle = GetVehicleThrottleOffset(vehicle);
+                // Use GetControlNormal for brake input (returns 0-1, only when pressed)
+                const brake = GetControlNormal(0, 72); // Control 72 is vehicle brake
+
                 if (!this.isShowingSpeedometer) {
                     this.showSpeedometer();
                 }
 
-                this.updateSpeedometer(this.currentSpeed, currentGear, maxGears);
+                this.updateSpeedometer(this.currentSpeed, currentGear, maxGears, throttle, brake);
             } else {
                 this.hideSpeedometer();
             }

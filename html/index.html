@@ -1,11 +1,13 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Speedometer</title>
     <link rel="stylesheet" href="style.css">
 </head>
+
 <body>
     <div id="speedometer" class="speedometer-container">
         <div class="speedometer-content">
@@ -16,9 +18,20 @@
                     <span id="speed-unit" class="speed-unit">MPH</span>
                 </div>
             </div>
+            <div class="input-bars">
+                <div class="input-bar throttle-bar">
+                    <div class="input-bar-fill throttle-fill" id="throttle-fill"></div>
+                    <span class="input-label">T</span>
+                </div>
+                <div class="input-bar brake-bar">
+                    <div class="input-bar-fill brake-fill" id="brake-fill"></div>
+                    <span class="input-label">B</span>
+                </div>
+            </div>
         </div>
     </div>
-    
+
     <script src="script.js"></script>
 </body>
+
 </html>

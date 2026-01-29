@@ -1,7 +1,7 @@
 fx_version 'cerulean'
 game 'gta5'
 
-author 'Custom'
+author 'Zendo'
 description 'TypeScript Speedometer with MPH/KMH Toggle'
 version '2.0.0'
 
